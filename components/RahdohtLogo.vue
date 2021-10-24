@@ -8,8 +8,8 @@
 
 <style>
 .RahdohtLogo {
-  height: 380px;
-  width: 380px;
+  height: 400px;
+  width: 400px;
   transform: rotateY(560deg);
   animation: turn 3.5s ease-out forwards 1s;
 }
