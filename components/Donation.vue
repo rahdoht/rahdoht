@@ -7,7 +7,7 @@
           v-on="on"
           @click="copyToClipboard, (snackbar = true)"
         >
-          <img :src="coin.url" height=18 />
+          <img :src="coin.url" class="cryptoicon" />
         </span>
         <v-snackbar v-model="snackbar" :timeout="timeout">
           <center>{{ snackbarText }}</center>
@@ -17,6 +17,13 @@
     </v-tooltip>
   </span>
 </template>
+
+<style>
+.cryptoicon {
+    vertical-align: middle;
+    max-height: 18px;
+}
+</style>
 
 <script>
 export default {
