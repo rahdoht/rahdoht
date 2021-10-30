@@ -1,11 +1,6 @@
 <template>
   <v-app dark>
-    <v-navigation-drawer
-      v-model="drawer"
-      fixed
-      app
-      width="212"
-    >
+    <v-navigation-drawer v-model="drawer" fixed app width="212">
       <v-list>
         <v-list-item
           v-for="(item, i) in items"

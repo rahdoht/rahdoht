@@ -8,7 +8,7 @@
           filled
           clear-icon="mdi-close-circle"
           clearable
-          label="Enter your wassie number"
+          label="Enter your wassie's number"
           type="number"
           @click:append-outer="getWassie(message)"
           @keydown.enter.prevent="getWassie(message)"
@@ -57,7 +57,10 @@ export default {
       "perfect for wassie soup",
       "i think loomdart's mom wanted this one",
       "this wassie would look good under a rug",
-      "so much lucky"
+      "so much lucky",
+      "there can be only one",
+      "ay imma i lan boi",
+      "pump it loomdart"
     ]
   }),
 
