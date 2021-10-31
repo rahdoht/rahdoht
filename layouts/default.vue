@@ -27,14 +27,16 @@
         <Nuxt />
       </v-container>
     </v-main>
-    <v-footer :absolute="!fixed" app>
-      <span>
-        &copy; {{ new Date().getFullYear() }}
-        farthing for a meme? click to copy.
-        <Donation :coin="eth" />
-        <Donation :coin="sol" />
-        <Donation :coin="btc" />
-      </span>
+    <v-footer absolute="!fixed" app>
+      <v-row>
+        <v-col class="text-left"> &copy; {{ new Date().getFullYear() }} </v-col>
+        <v-col class="text-right">
+          farthing for a meme? click to copy.
+          <Donation :coin="eth" />
+          <Donation :coin="sol" />
+          <Donation :coin="btc" />
+        </v-col>
+      </v-row>
     </v-footer>
   </v-app>
 </template>

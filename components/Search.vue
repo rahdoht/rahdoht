@@ -1,46 +1,70 @@
 <template>
   <v-container>
-    <v-row>
-      <v-col>
+    <v-row justify="center">
+      <v-col cols="10" sm="8" md="8">
         <v-text-field
-          v-model="message"
+          v-model="number"
           append-outer-icon="mdi-send"
-          filled
           clear-icon="mdi-close-circle"
-          clearable
           label="Enter your wassie's number"
           type="number"
           min="0"
           max="12344"
-          @click:append-outer="getWassie(message)"
-          @keydown.enter.prevent="getWassie(message)"
+          @click:append-outer="getWassie(number)"
+          @keydown.enter.prevent="getWassie(number)"
         ></v-text-field>
       </v-col>
     </v-row>
-    <v-row>
-      <v-col>
-        <v-img
-          id="wassie"
-          :src="wassieSrc"
-          lazy-src="/my_couch_now.png"
-          height="400"
-          contain
-        ></v-img>
-      </v-col>
-    </v-row>
-    <div v-show="showPlatitude">
+    <div v-show="showPlatitude" class="text-center">
       <v-row>
         <v-col>
-          <h2>
+          <h1>
             <span style="color:gray">Rank</span> 1
             <span style="color:gray">of</span> 12345
-          </h2>
-          <br />{{ this.platitude }}
+          </h1>
+          {{ this.platitude }}
+        </v-col>
+      </v-row>
+    </div>
+    <div>
+      <v-row>
+        <v-col>
+          <v-img
+            id="wassie"
+            :src="wassieSrc"
+            lazy-src="/my_couch_now.png"
+            height="400"
+            contain
+          ></v-img>
+        </v-col>
+      </v-row>
+    </div>
+    <div v-show="showPlatitude" class="text-center">
+      <v-row justify="center">
+        <v-col cols="10" md="8">
+          <v-simple-table dense>
+            <tbody>
+              <tr v-for="trait in traits" :key="trait.trait_type">
+                <td class="trait-type">{{ trait.trait_type }}</td>
+                <td class="trait-value">{{ trait.value }}</td>
+              </tr>
+            </tbody>
+          </v-simple-table>
         </v-col>
       </v-row>
     </div>
   </v-container>
 </template>
+
+<style>
+.trait-type {
+  text-align: left;
+  color: gray;
+}
+.trait-value {
+  text-align: right;
+}
+</style>
 
 <script>
 export default {
@@ -48,9 +72,10 @@ export default {
     this.wassieSrc = "";
   },
   data: () => ({
-    prev: 0,
-    message: null,
+    prev: null,
+    number: null,
     wassieSrc: "",
+    traits: [],
     showPlatitude: false,
     platitude: "",
     platitudes: [
@@ -74,13 +99,19 @@ export default {
   }),
 
   methods: {
-    getWassie(num) {
-      // this.traits = `https://fruuydfac2a4b4v5rip3ovqv5gg2sbaqgcgwnbnztlbt7xed7ela.arweave.net/LGlMDKAWgcDyvYoft1YV6Y2pBBAwjWaFuZrDP9yD-RY/${num}.json`;
-      this.wassieSrc = `https://arweave.net/ABckdetHKeV8VgUoIZ53TMDKkTi56LhTf-Gb1Mdqx9c/${num}.png`;
-      if (num != this.prev) {
-        this.randomPlatitude();
+    getWassie(number) {
+      if (number != this.prev) {
+        this.wassieSrc = `https://arweave.net/ABckdetHKeV8VgUoIZ53TMDKkTi56LhTf-Gb1Mdqx9c/${number}.png`;
+        this.fetchTraits(number);
       }
-      this.prev = num;
+      this.prev = number;
+    },
+    async fetchTraits(number) {
+      let url = `https://fruuydfac2a4b4v5rip3ovqv5gg2sbaqgcgwnbnztlbt7xed7ela.arweave.net/LGlMDKAWgcDyvYoft1YV6Y2pBBAwjWaFuZrDP9yD-RY/${number}.json`;
+      this.$axios.$get(url).then(resp => {
+        this.traits = resp.attributes;
+        this.randomPlatitude();
+      });
     },
     randomPlatitude() {
       var num = Math.floor(Math.random() * this.platitudes.length);

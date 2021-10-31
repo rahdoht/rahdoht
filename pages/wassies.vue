@@ -5,6 +5,7 @@
         <v-card-title class="headline">
           All Wassies Are Rare Calculator
         </v-card-title>
+        <v-card-subtitle>disclaimer: issa joke</v-card-subtitle>
         <Search />
       </v-card>
     </v-col>

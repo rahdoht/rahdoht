@@ -13,13 +13,9 @@
           just a couch doing its part
         </v-card-subtitle>
         <v-card-text>
-          <ul>
-            <li>
-              <NuxtLink to=/wassies>
-                All Wassies Are Rare Calculator
-              </NuxtLink>
-            </li>
-          </ul>
+          <NuxtLink to=/wassies>
+            All Wassies Are Rare Calculator
+          </NuxtLink>
         </v-card-text>
         <v-card-text class="text-right">
           <a href="https://twitter.com/rahdoht" target="_blank">
