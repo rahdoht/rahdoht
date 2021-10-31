@@ -44,14 +44,17 @@ export default {
   data() {
     return {
       eth: {
+        name: "eth",
         url: "/eth.png",
         address: "0x7A26f2A0B0bFe00E9c6f5E7Cf1206eEeB40245d0"
       },
       sol: {
+        name: "sol",
         url: "/sol.png",
         address: "GxY4Ph2zZ2dKxNQCgfYBm7w5uxnRu4MXW8v6scx1Wp6S"
       },
       btc: {
+        name: "btc",
         url: "/btc.png",
         address: "bc1q26yf733g6v5qydxrwmadnaw0mtt6xfsmnwrnee"
       },

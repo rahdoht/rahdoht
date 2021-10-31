@@ -5,12 +5,15 @@
         <span
           v-bind="attrs"
           v-on="on"
-          @click="copyToClipboard, (snackbar = true)"
+          @click="
+            copyToClipboard(coin.address);
+            snackbar = true;
+          "
         >
           <img :src="coin.url" class="cryptoicon" />
         </span>
         <v-snackbar v-model="snackbar" :timeout="timeout">
-          <center>{{ snackbarText }}</center>
+          <center>{{ coin.name }} {{ snackbarText }}</center>
         </v-snackbar>
       </template>
       <span>{{ coin.address }}</span>
@@ -20,8 +23,8 @@
 
 <style>
 .cryptoicon {
-    vertical-align: middle;
-    max-height: 18px;
+  vertical-align: middle;
+  max-height: 18px;
 }
 </style>
 
@@ -36,8 +39,8 @@ export default {
   },
   props: ["coin"],
   methods: {
-    copyToClipboard() {
-      navigator.clipboard.writeText(coin.address);
+    copyToClipboard(address) {
+      navigator.clipboard.writeText(address);
     }
   }
 };
