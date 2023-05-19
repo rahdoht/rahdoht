@@ -27,7 +27,7 @@
         <Nuxt />
       </v-container>
     </v-main>
-    <v-footer absolute="!fixed" app>
+    <v-footer :absolute="true" app>
       <v-row>
         <v-col class="text-left"> &copy; {{ new Date().getFullYear() }} </v-col>
         <v-col class="text-right">
