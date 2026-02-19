@@ -91,3 +91,18 @@ sw.*
 
 # iPython notebooks
 *.ipynb
+
+# Reference code (not part of the build)
+tmp/
+
+# Next.js
+.next/
+out/
+
+# Environment variables
+.env.local
+.env*.local
+
+# Contract build artifacts
+contracts/artifacts/
+contracts/cache/
