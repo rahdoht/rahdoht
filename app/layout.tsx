@@ -1,7 +1,18 @@
+import type { Metadata } from "next";
+import "./globals.css";
+import { Providers } from "./providers";
+
+export const metadata: Metadata = {
+  title: "rahdoht",
+  description: "just a couch doing its part",
+};
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className="bg-neutral-950 text-neutral-100 min-h-screen font-mono">
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }
