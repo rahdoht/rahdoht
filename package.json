@@ -9,9 +9,9 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "hardhat:node": "npx hardhat node",
-    "deploy:local": "npx hardhat run contracts/scripts/deploy-local.mjs --network hardhat",
-    "deploy:sepolia": "npx hardhat run contracts/scripts/deploy.mjs --network base-sepolia",
-    "deploy:mainnet": "npx hardhat run contracts/scripts/deploy.mjs --network base"
+    "deploy:local": "npx hardhat run contracts/scripts/deploy-local.js --network hardhat",
+    "deploy:sepolia": "npx hardhat run contracts/scripts/deploy.js --network base-sepolia",
+    "deploy:mainnet": "npx hardhat run contracts/scripts/deploy.js --network base"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.0.0",
