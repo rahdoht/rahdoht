@@ -1,6 +1,8 @@
+import { notFound } from "next/navigation";
 import { Palimpsest } from "@/components/Palimpsest";
 
 export default function PalimpsestPage() {
+  if (process.env.NEXT_PUBLIC_PALIMPSEST_ENABLED !== "true") notFound();
   return (
     <div>
       <div className="mb-8">
