@@ -10,6 +10,35 @@
 
 ---
 
+## Progress
+
+<!-- Script greps for "^- \[ \] Task" — sub-items use "  -" (no checkbox) so they're ignored by automation -->
+
+- [ ] Task 2: lib/smokeGeometry.ts — bezier + plume math
+  - tests: `npm test -- smokeGeometry` → 7 passing (bezierPoint ×3, plumeWidth ×3, animateControlPoints ×2)
+  - note: also verify `@chenglou/pretext` and `simplex-noise` are in package.json before starting
+  - commit: `feat: add smokeGeometry — bezier spine + plume width math`
+
+- [ ] Task 3: Upgrade lib/putLabel.ts with pretext
+  - tests: `npm test` → all previously passing tests still pass (no regressions)
+  - typecheck: `npx tsc --noEmit 2>&1 | grep putLabel` → no errors
+  - commit: `feat: upgrade putLabel to use pretext layoutWithLines`
+
+- [ ] Task 4: components/SmokeText.tsx
+  - tests: `npm test -- SmokeText` → 2 passing (renders canvas, handles empty text)
+  - tests: `npm test` → full suite passes (no regressions)
+  - commit: `feat: add SmokeText animated smoke canvas component`
+
+- [ ] Task 5: Wire SmokeText into Palimpsest.tsx
+  - tests: `npm test` → full suite passes
+  - verify: `<SmokeText text={text} width={320} height={480} />` present in Palimpsest.tsx
+  - commit: `feat: wire SmokeText into Palimpsest mint page`
+
+- [ ] Task 6: Visual verification (MANUAL — skip in automation)
+- [ ] Task 7: Finish branch (MANUAL — skip in automation)
+
+---
+
 ## Context
 
 All work happens in `.worktrees/pretext-smoke` on branch `feature/pretext-smoke`.
