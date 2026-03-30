@@ -3,6 +3,7 @@
 import { useState, useCallback, useEffect } from "react";
 import { useAccount } from "wagmi";
 import { PackCanvas } from "./PackCanvas";
+import { SmokeText } from "./SmokeText";
 import { WalletConnect } from "./WalletConnect";
 import { useMintPrice, useMint } from "@/lib/contract";
 import { uploadImage, uploadMetadata } from "@/lib/ipfs";
@@ -117,6 +118,9 @@ export function Palimpsest() {
       <div className="border border-neutral-800 rounded-lg overflow-hidden">
         <PackCanvas packId={packId} text={text} onRender={handleRender} />
       </div>
+
+      {/* Smoke animation */}
+      <SmokeText text={text} width={320} height={480} />
 
       {/* Text input */}
       <div>
