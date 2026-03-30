@@ -45,7 +45,7 @@ export function SmokeText({ text }: SmokeTextProps) {
 
   useEffect(() => {
     const canvas = canvasRef.current!;
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d")!;
     if (!ctx) return; // jsdom — no canvas support
     const noise2D = createNoise2D();
 
