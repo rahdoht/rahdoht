@@ -5,14 +5,14 @@ import { SmokeText } from "./SmokeText";
 describe("SmokeText", () => {
   it("renders a canvas element", () => {
     const { container } = render(
-      <SmokeText text="hello world" width={300} height={500} />
+      <SmokeText text="hello world" />
     );
     expect(container.querySelector("canvas")).toBeTruthy();
   });
 
   it("renders without crashing when text is empty", () => {
     expect(() =>
-      render(<SmokeText text="" width={300} height={500} />)
+      render(<SmokeText text="" />)
     ).not.toThrow();
   });
 });

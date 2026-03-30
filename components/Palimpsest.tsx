@@ -92,7 +92,9 @@ export function Palimpsest() {
     : null;
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6">
+    <>
+    <SmokeText text={text} />
+    <div className="relative z-10 max-w-2xl mx-auto space-y-6 bg-black/50 backdrop-blur-sm rounded-xl p-6">
       {/* Pack selector */}
       <div>
         <label className="block text-xs text-neutral-500 mb-1">Pack ID (1–9999)</label>
@@ -118,9 +120,6 @@ export function Palimpsest() {
       <div className="border border-neutral-800 rounded-lg overflow-hidden">
         <PackCanvas packId={packId} text={text} onRender={handleRender} />
       </div>
-
-      {/* Smoke animation */}
-      <SmokeText text={text} width={320} height={480} />
 
       {/* Text input */}
       <div>
@@ -200,5 +199,6 @@ export function Palimpsest() {
         </div>
       )}
     </div>
+    </>
   );
 }
