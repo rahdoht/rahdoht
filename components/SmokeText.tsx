@@ -9,8 +9,8 @@ interface SmokeTextProps {
 }
 
 const FONT_SIZE = 20;
-const FONT = `${FONT_SIZE}px 'EB Garamond', Georgia, serif`;
-const EMIT_RATE = 0.065;  // seconds between char emissions
+const FONT = `${FONT_SIZE}px 'EB Garamond', Georgia, serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji'`;
+const EMIT_RATE = 0.22;   // seconds between char emissions
 const RISE_SPEED = 0.075; // t-units per second at base
 const WISP_RATE = 0.1;
 const PARTICLE_RATE = 0.04;
@@ -70,7 +70,7 @@ export function SmokeText({ text }: SmokeTextProps) {
     window.addEventListener("resize", resize);
 
     // Ember is the left tip of a horizontal cigarette (🚬 orientation)
-    const tx = () => W * 0.3;
+    const tx = () => W * 0.5 - 55;
     const ty = () => H * 0.80;
 
     function smokeSpline(time: number) {
