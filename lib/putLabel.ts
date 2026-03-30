@@ -48,7 +48,7 @@ export async function putLabel(imageURL: string, label: string): Promise<string>
 
   await new Promise<void>((resolve, reject) => {
     image.onload = () => resolve();
-    image.onerror = reject;
+    image.onerror = () => reject(new Error(`Failed to load pack image: ${imageURL}`));
   });
 
   const canvas = document.createElement("canvas");
