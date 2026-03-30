@@ -1,6 +1,5 @@
 export async function putLabel(imageURL: string, label: string): Promise<string> {
   const image = new Image();
-  image.crossOrigin = "anonymous";
   image.src = imageURL;
 
   await new Promise<void>((resolve, reject) => {

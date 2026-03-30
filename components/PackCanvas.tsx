@@ -3,8 +3,6 @@
 import { useEffect, useState, useRef } from "react";
 import { putLabel } from "@/lib/putLabel";
 
-const IPFS_BASE = "https://bafybeigvhgkcqqamlukxcmjodalpk2kuy5qzqtx6m4i6pvb7o3ammss3y4.ipfs.dweb.link";
-
 interface PackCanvasProps {
   packId: number;
   text: string;
@@ -16,7 +14,8 @@ export function PackCanvas({ packId, text, onRender }: PackCanvasProps) {
   const [loading, setLoading] = useState(false);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const imageUrl = `${IPFS_BASE}/${packId}.jpg`;
+  // Use local proxy to avoid canvas CORS taint from IPFS gateways
+  const imageUrl = `/api/pack/${packId}`;
 
   useEffect(() => {
     if (debounceRef.current) clearTimeout(debounceRef.current);
@@ -54,7 +53,6 @@ export function PackCanvas({ packId, text, onRender }: PackCanvasProps) {
           src={src}
           alt={`Pack #${packId}`}
           className="w-full rounded"
-          crossOrigin="anonymous"
         />
       )}
     </div>

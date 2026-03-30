@@ -1,7 +1,6 @@
 "use client";
 
-import { useAccount, useConnect, useDisconnect } from "wagmi";
-import { injected } from "wagmi/connectors";
+import { useAccount, useConnect, useDisconnect, useConnectors } from "wagmi";
 
 function truncate(address: string) {
   return `${address.slice(0, 6)}…${address.slice(-4)}`;
@@ -11,6 +10,7 @@ export function WalletConnect() {
   const { address, isConnected, chain } = useAccount();
   const { connect, isPending } = useConnect();
   const { disconnect } = useDisconnect();
+  const connectors = useConnectors();
 
   if (isConnected && address) {
     return (
@@ -28,8 +28,8 @@ export function WalletConnect() {
 
   return (
     <button
-      onClick={() => connect({ connector: injected() })}
-      disabled={isPending}
+      onClick={() => connect({ connector: connectors[0] })}
+      disabled={isPending || connectors.length === 0}
       className="bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-sm px-3 py-1.5 rounded transition-colors disabled:opacity-50"
     >
       {isPending ? "connecting…" : "Connect Wallet"}
