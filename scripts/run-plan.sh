@@ -76,17 +76,32 @@ When done:
 2. Confirm the commit was made with the exact message specified
 3. Output the single line: TASK_COMPLETE"
 
-  # Run claude non-interactively in the worktree
-  if claude --dangerously-skip-permissions -p "$PROMPT" --max-turns "$MAX_TURNS"; then
-    # Flip checkbox to done
-    sed -i "${LINE_NUM}s/^- \[ \] Task/- [x] Task/" "$PLAN_PATH"
-    echo ""
-    echo "✓ Done: $TASK_LABEL"
-    echo ""
-  else
-    EXIT=$?
+  # Run claude non-interactively, tee output so we can check for the sentinel
+  TMPOUT=$(mktemp)
+  EXIT=0
+  claude --dangerously-skip-permissions -p "$PROMPT" --max-turns "$MAX_TURNS" | tee "$TMPOUT" || EXIT=$?
+
+  if [[ $EXIT -ne 0 ]]; then
+    rm -f "$TMPOUT"
     echo ""
     echo "✗ Failed: $TASK_LABEL (exit $EXIT)"
     exit 1
   fi
+
+  # Exit 0 is not enough — verify claude actually finished the task.
+  # If it ran out of context/turns it exits 0 without printing TASK_COMPLETE.
+  if ! grep -q "TASK_COMPLETE" "$TMPOUT"; then
+    rm -f "$TMPOUT"
+    echo ""
+    echo "✗ Incomplete: $TASK_LABEL (claude exited ok but did not output TASK_COMPLETE — likely hit context limit)"
+    echo "  Re-run the script to retry this task."
+    exit 1
+  fi
+
+  rm -f "$TMPOUT"
+  # Flip checkbox to done
+  sed -i "${LINE_NUM}s/^- \[ \] Task/- [x] Task/" "$PLAN_PATH"
+  echo ""
+  echo "✓ Done: $TASK_LABEL"
+  echo ""
 done
