@@ -32,9 +32,17 @@ export function PackCanvas({ packId, text, onRender }: PackCanvasProps) {
         const result = await putLabel(imageUrl, text);
         setSrc(result);
         onRender?.(result);
-      } catch (e) {
-        console.error("putLabel error:", e);
-        setSrc(imageUrl);
+      } catch {
+        // Gateway may be slow — wait 2s and retry once before falling back
+        await new Promise((r) => setTimeout(r, 2000));
+        try {
+          const result = await putLabel(imageUrl, text);
+          setSrc(result);
+          onRender?.(result);
+        } catch (e) {
+          console.warn("putLabel failed after retry, showing unlabelled pack:", e);
+          setSrc(imageUrl);
+        }
       } finally {
         setLoading(false);
       }
