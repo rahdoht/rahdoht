@@ -1,5 +1,20 @@
 export type Point = { x: number; y: number };
 
+/** Cubic bezier tangent vector at parameter t ∈ [0,1] (not normalized) */
+export function bezierTangent(
+  p0: Point,
+  cp1: Point,
+  cp2: Point,
+  p3: Point,
+  t: number
+): Point {
+  const u = 1 - t;
+  return {
+    x: 3 * u * u * (cp1.x - p0.x) + 6 * u * t * (cp2.x - cp1.x) + 3 * t * t * (p3.x - cp2.x),
+    y: 3 * u * u * (cp1.y - p0.y) + 6 * u * t * (cp2.y - cp1.y) + 3 * t * t * (p3.y - cp2.y),
+  };
+}
+
 /** Cubic bezier point at parameter t ∈ [0,1] */
 export function bezierPoint(
   p0: Point,
