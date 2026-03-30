@@ -69,8 +69,9 @@ export function SmokeText({ text }: SmokeTextProps) {
     resize();
     window.addEventListener("resize", resize);
 
-    const tx = () => W * 0.5;
-    const ty = () => H * 0.75;
+    // Ember is the left tip of a horizontal cigarette (🚬 orientation)
+    const tx = () => W * 0.3;
+    const ty = () => H * 0.80;
 
     function smokeSpline(time: number) {
       const x = tx(), y = ty();
@@ -104,10 +105,12 @@ export function SmokeText({ text }: SmokeTextProps) {
       });
     }
 
+    // 🚬 orientation: ember on left, filter on right, smoke rises from left tip
     function drawCigarette(time: number) {
       const x = tx(), y = ty();
-      const len = 110, w = 8, filterLen = 28;
+      const len = 110, h = 8, filterLen = 28;
 
+      // Ember glow at left tip
       const pulse = 0.15 + 0.06 * Math.sin(time * 1.8);
       const glow = ctx.createRadialGradient(x, y, 0, x, y, 35);
       glow.addColorStop(0,   `rgba(210, 90, 30, ${pulse})`);
@@ -116,24 +119,28 @@ export function SmokeText({ text }: SmokeTextProps) {
       ctx.fillStyle = glow;
       ctx.fillRect(x - 50, y - 50, 100, 100);
 
+      // Body — extends right from ember
       ctx.fillStyle = "#e8e0d0";
-      ctx.fillRect(x - w / 2, y, w, len - filterLen);
+      ctx.fillRect(x, y - h / 2, len - filterLen, h);
 
+      // Filter — rightmost
       ctx.fillStyle = "#c4a46a";
-      ctx.fillRect(x - w / 2, y + len - filterLen, w, filterLen);
+      ctx.fillRect(x + len - filterLen, y - h / 2, filterLen, h);
       ctx.fillStyle = "#b8944e";
-      ctx.fillRect(x - w / 2, y + len - filterLen, w, 2);
+      ctx.fillRect(x + len - filterLen, y - h / 2, 2, h);
 
+      // Ash stub to the left of ember
       ctx.fillStyle = "#5a5550";
-      ctx.fillRect(x - w / 2 - 0.5, y - 3, w + 1, 5);
+      ctx.fillRect(x - 5, y - h / 2 - 0.5, 5, h + 1);
 
-      const cg = ctx.createLinearGradient(x, y - 3, x, y + 2);
+      // Ember tip — vertical ellipse at left end
+      const cg = ctx.createLinearGradient(x - 3, y, x + 2, y);
       cg.addColorStop(0,   "#c44a20");
       cg.addColorStop(0.5, "#e86830");
       cg.addColorStop(1,   "#5a5550");
       ctx.fillStyle = cg;
       ctx.beginPath();
-      ctx.ellipse(x, y - 1, w / 2 + 1, 3, 0, 0, Math.PI * 2);
+      ctx.ellipse(x + 1, y, 3, h / 2 + 1, 0, 0, Math.PI * 2);
       ctx.fill();
     }
 
