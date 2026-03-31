@@ -106,3 +106,4 @@ out/
 # Contract build artifacts
 contracts/artifacts/
 contracts/cache/
+.worktrees/

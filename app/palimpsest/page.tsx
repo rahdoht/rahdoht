@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { Palimpsest } from "@/components/Palimpsest";
+import { PalimpsestClient } from "@/components/PalimpsestClient";
 
 export default function PalimpsestPage() {
   if (process.env.NEXT_PUBLIC_PALIMPSEST_ENABLED !== "true") notFound();
@@ -11,7 +11,7 @@ export default function PalimpsestPage() {
           write your literature onto a cigarette pack. mint it on Base.
         </p>
       </div>
-      <Palimpsest />
+      <PalimpsestClient />
     </div>
   );
 }

@@ -14,11 +14,13 @@
     "deploy:mainnet": "npx hardhat run contracts/scripts/deploy.js --network base"
   },
   "dependencies": {
+    "@chenglou/pretext": "^0.0.3",
     "@tanstack/react-query": "^5.0.0",
     "@testing-library/dom": "^10.4.1",
     "next": "^15.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "simplex-noise": "^4.0.3",
     "viem": "^2.0.0",
     "wagmi": "^2.0.0"
   },

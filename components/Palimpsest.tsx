@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { useAccount } from "wagmi";
 import { PackCanvas } from "./PackCanvas";
 import { WalletConnect } from "./WalletConnect";
@@ -28,6 +28,11 @@ export function Palimpsest() {
   const { data: mintPrice } = useMintPrice();
   const { mint, isSuccess, txHash } = useMint();
 
+  // Move tx-success watch out of render
+  useEffect(() => {
+    if (isSuccess && status === "minting") setStatus("success");
+  }, [isSuccess]);
+
   const handlePackIdChange = (id: number) => {
     setPackId(id);
     setParent(`${IPFS_BASE}/${id}.jpg`);
@@ -38,7 +43,7 @@ export function Palimpsest() {
   }, []);
 
   const handleMint = async () => {
-    if (!renderedDataUrl || !mintPrice) return;
+    if (!isConnected || !text.trim() || !mintPrice) return;
     setStatus("uploading-image");
     setErrorMsg("");
 
@@ -65,11 +70,6 @@ export function Palimpsest() {
     }
   };
 
-  // Watch for tx confirmation
-  if (isSuccess && status === "minting") {
-    setStatus("success");
-  }
-
   const statusLabel: Record<MintStatus, string> = {
     idle: "",
     "uploading-image": "Uploading image to IPFS…",
@@ -80,7 +80,15 @@ export function Palimpsest() {
     error: errorMsg,
   };
 
-  const canMint = isConnected && renderedDataUrl && status === "idle";
+  const canMint = isConnected && text.trim() && mintPrice != null && status === "idle";
+
+  const mintBlockedReason = !isConnected
+    ? "connect wallet to mint"
+    : !text.trim()
+    ? "write something first"
+    : mintPrice == null
+    ? "fetching price… (are you on the right network?)"
+    : null;
 
   return (
     <div className="max-w-2xl mx-auto space-y-6">
@@ -147,6 +155,9 @@ export function Palimpsest() {
               {formatEther(mintPrice as bigint)} ETH
               <span className="ml-2 text-neutral-600">~ $8.50 (one pack)</span>
             </div>
+          )}
+          {mintBlockedReason && status === "idle" && (
+            <div className="text-xs text-neutral-600 mb-2">{mintBlockedReason}</div>
           )}
           <button
             onClick={handleMint}
