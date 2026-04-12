@@ -23,7 +23,7 @@ export function TunerScreen() {
 
   const streamRef = useRef<MediaStream | null>(null);
   const analyserRef = useRef<AnalyserNode | null>(null);
-  const bufferRef = useRef<Float32Array | null>(null);
+  const bufferRef = useRef<Float32Array<ArrayBuffer> | null>(null);
   const rafRef = useRef<number | null>(null);
   const ctxRef = useRef<AudioContext | null>(null);
 

@@ -9,6 +9,7 @@ const NAV_ITEMS = [
   { href: "/", label: "welcome", icon: "🛋" },
   { href: "/wassies", label: "wassies", icon: "🐧" },
   { href: "/smoke", label: "smoke", icon: "🌫️" },
+  { href: "/allons-jouer", label: "allons jouer", icon: "🪗" },
   ...(process.env.NEXT_PUBLIC_PALIMPSEST_ENABLED === "true"
     ? [{ href: "/palimpsest", label: "palimpsest", icon: "🚬" }]
     : []),

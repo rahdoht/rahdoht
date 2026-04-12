@@ -17,6 +17,6 @@ export const K = {
 } as const;
 
 export const FONTS = {
-  serif: "'Crimson Pro', 'Georgia', serif",
-  mono: "'JetBrains Mono', monospace",
+  serif: "var(--font-crimson), 'Georgia', serif",
+  mono: "var(--font-jetbrains), monospace",
 } as const;
